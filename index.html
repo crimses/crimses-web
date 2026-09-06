@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRIMSES — Tu negocio ya es bueno. Que se vea así también en internet.</title>
+  <meta name="description" content="CRIMSES construye páginas web completas, landing pages y tiendas online para negocios de gastronomía, salud/estética y carpintería que ya son buenos y necesitan que su web lo demuestre." />
+  <meta name="theme-color" content="#0F1830" />
+
+  <link rel="icon" type="image/png" href="logo-crimses/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <link rel="stylesheet" href="styles.css?v=20260902b" />
+
+  <!-- Sin JS no hay quien saque .is-visible: forzamos el contenido visible -->
+  <noscript>
+    <style>
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .splash { display: none !important; }
+      .cursor { display: none !important; }
+    </style>
+  </noscript>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Splash: seguro doble (CSS se auto-oculta a los 4.5s aunque JS falle) -->
+  <div class="splash" data-splash aria-hidden="true">
+    <span class="splash-mark">CRIMSES</span>
+  </div>
+
+  <!-- Cursor personalizado (solo desktop con puntero fino; se oculta solo en touch) -->
+  <div class="cursor" data-cursor aria-hidden="true">
+    <span class="cursor-dot" data-cursor-dot></span>
+    <span class="cursor-ring" data-cursor-ring></span>
+  </div>
+
+  <header class="nav" data-nav>
+    <div class="container nav-inner">
+      <a href="#inicio" class="nav-logo" data-cursor-link>CRIMSES</a>
+
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#quienes-somos" data-cursor-link>Quiénes somos</a>
+        <a href="#servicios" data-cursor-link>Servicios</a>
+        <a href="#portfolio" data-cursor-link>Ejemplos</a>
+      </nav>
+
+      <a href="#contacto" class="btn btn-primary btn-sm nav-cta" data-cursor-link>Quiero mi web</a>
+
+      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-mobile" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav id="nav-mobile" class="nav-mobile" data-nav-mobile aria-label="Principal (móvil)">
+      <a href="#quienes-somos">Quiénes somos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#portfolio">Ejemplos</a>
+      <a href="#contacto" class="btn btn-primary btn-block">Quiero mi web</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section id="inicio" class="hero" data-hero>
+      <!--
+        Fondo decorativo: anillo de partículas color coral que ondulan solo
+        (initHeroParticles en main.js) y se apartan del cursor cerca suyo.
+        Puramente decorativo (aria-hidden, pointer-events:none) — se apaga
+        entero si el usuario tiene "reducir movimiento" activado.
+      -->
+      <canvas class="hero-particles" data-hero-particles aria-hidden="true"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker" data-reveal>// presencia digital</p>
+          <h1 class="hero-title" data-reveal>
+            <span class="hero-line">Tu negocio ya es bueno.</span>
+            <span class="hero-line hero-line-accent">Ahora que también se note en internet.</span>
+          </h1>
+          <p class="hero-sub" data-reveal>
+            Hacemos páginas web completas, landings y tiendas online para negocios que ya tienen el producto, el local y los clientes — y todavía no se nota en Google.
+          </p>
+          <div class="hero-actions" data-reveal>
+            <a href="#contacto" class="btn btn-primary" data-cursor-link>Quiero mi web</a>
+            <button type="button" class="btn btn-ghost" data-replay-morph data-cursor-link>
+              <span class="btn-icon" aria-hidden="true">▶</span> Ver la transformación de nuevo
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <!--
+            Elemento firma del sitio: un comparador de arrastre "antes / después".
+            Son DOS copias del mismo navegador falso superpuestas (una con look
+            genérico, otra con identidad CRIMSES); la copia "después" se recorta
+            con clip-path según --pos, una variable CSS que main.js actualiza
+            al arrastrar el mango, con el teclado (flechas) o con click directo.
+            initCompareSlider() maneja la interacción; playCompareSweep() hace
+            el barrido automático de bienvenida y el que dispara el botón
+            "Ver la transformación de nuevo".
+          -->
+          <div class="compare" data-compare data-cursor-card style="--pos: 38%">
+            <div class="mock-browser mock-browser--before">
+              <div class="mock-browser-bar">
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-url">tu-negocio-antes.com</span>
+              </div>
+              <div class="mock-browser-body">
+                <div class="mock-logo" aria-hidden="true">Tu Negocio</div>
+                <div class="mock-nav" aria-hidden="true">
+                  <span>Inicio</span><span>Nosotros</span><span>Contacto</span>
+                </div>
+                <div class="mock-hero">
+                  <div class="mock-hero-title" aria-hidden="true">Bienvenidos a <span class="mock-hero-title-accent">Tu Negocio</span></div>
+                  <div class="mock-hero-sub" aria-hidden="true">Ingredientes seleccionados y una experiencia inolvidable</div>
+                  <div class="mock-cta" aria-hidden="true">Click Aquí</div>
+                </div>
+                <div class="mock-cards">
+                  <div class="mock-card"></div>
+                  <div class="mock-card"></div>
+                  <div class="mock-card"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mock-browser mock-browser--after" data-compare-after aria-hidden="true">
+              <div class="mock-browser-bar">
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-url">tu-negocio.com</span>
+              </div>
+              <div class="mock-browser-body">
+                <div class="mock-logo" aria-hidden="true">Tu Negocio</div>
+                <div class="mock-nav" aria-hidden="true">
+                  <span>Inicio</span><span>Nosotros</span><span>Contacto</span>
+                </div>
+                <div class="mock-hero">
+                  <div class="mock-hero-title" aria-hidden="true">Bienvenidos a <span class="mock-hero-title-accent">Tu Negocio</span></div>
+                  <div class="mock-hero-sub" aria-hidden="true">Ingredientes seleccionados y una experiencia inolvidable</div>
+                  <div class="mock-cta" aria-hidden="true">Click Aquí</div>
+                </div>
+                <div class="mock-cards">
+                  <div class="mock-card"></div>
+                  <div class="mock-card"></div>
+                  <div class="mock-card"></div>
+                </div>
+              </div>
+            </div>
+
+            <span class="compare-tag compare-tag--before" aria-hidden="true">Antes</span>
+            <span class="compare-tag compare-tag--after" aria-hidden="true">Después</span>
+
+            <div class="compare-handle" data-compare-handle
+                 role="slider" tabindex="0"
+                 aria-label="Deslizar para comparar el antes y el después"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="38">
+              <span class="compare-handle-grip" aria-hidden="true">↔</span>
+            </div>
+          </div>
+          <p class="mock-caption">Deslizá para comparar. Así podría verse la tuya.</p>
+        </div>
+      </div>
+
+      <div class="hero-scroll-cue" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ======================= QUIÉNES SOMOS ======================= -->
+    <section id="quienes-somos" class="about">
+      <div class="container about-grid">
+        <div class="about-media" data-reveal>
+          <div class="about-avatars">
+            <div class="avatar" data-cursor-card>F</div>
+            <div class="avatar avatar-alt" data-cursor-card>L</div>
+          </div>
+          <p class="about-names">Felipe &amp; Lautaro</p>
+          <p class="about-role">Cofundadores de CRIMSES</p>
+        </div>
+
+        <div class="about-copy">
+          <p class="kicker" data-reveal>// quiénes somos</p>
+          <h2 data-reveal>Dos jóvenes que se cansaron de ver negocios buenos, mal representados.</h2>
+          <p data-reveal>CRIMSES nace de Felipe y Lautaro — no de una gran estructura corporativa, sino de algo más simple: la convicción de que muchísimos negocios buenos están perdiendo clientes por no tener una presencia digital a la altura.</p>
+          <p data-reveal>Hoy la decisión de "¿entro o no entro?" muchas veces se toma antes en Google que en la vereda. Un local impecable con una web congelada en el tiempo —o directamente sin web— pierde esa decisión sin que el dueño lo note.</p>
+          <p data-reveal>No vendemos una fórmula enlatada: nos involucramos en cada proyecto como si fuera propio. Cada cliente que confía en nosotros —un restaurante, un consultorio, una carpintería— nos da la oportunidad de construir su reputación junto con la nuestra.</p>
+
+          <!--
+            Cohete decorativo: sube desde abajo hacia arriba a la derecha,
+            en bucle, aprovechando el espacio en blanco a la derecha del
+            texto. Solo desktop (ver @media 960px en styles.css). Puramente
+            decorativo (aria-hidden) y se apaga con "reducir movimiento".
+          -->
+          <div class="about-rocket" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="100%" height="100%" fill="none">
+              <path class="about-rocket-flame" d="M32 44c-3.5 3-5 7-5 12 2.3-1.4 3.8-3 5-5.2 1.2 2.2 2.7 3.8 5 5.2 0-5-1.5-9-5-12Z" fill="var(--coral-quemado)"/>
+              <path class="about-rocket-body" d="M32 2c8 6 12 15 12 26 0 5.5-1.6 10-4 13.5-1.7-1.2-4.4-2-8-2s-6.3 0.8-8 2c-2.4-3.5-4-8-4-13.5C20 17 24 8 32 2Z" fill="var(--coral)"/>
+              <circle cx="32" cy="24" r="5.5" fill="var(--niebla)" stroke="var(--marino)" stroke-width="2"/>
+              <path d="M20 34c-4 1-7 4-8 9 4-0.5 7.5-1.6 10-3.6" fill="var(--marino)"/>
+              <path d="M44 34c4 1 7 4 8 9-4-0.5-7.5-1.6-10-3.6" fill="var(--marino)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== SERVICIOS =========================== -->
+    <section id="servicios" class="services">
+      <div class="container">
+        <p class="kicker" data-reveal>// servicios</p>
+        <h2 data-reveal>Elegí el tipo de web que tu negocio <em>necesita</em>.</h2>
+
+        <div class="service-grid">
+
+          <article class="service-card" data-reveal>
+            <div class="service-card-inner">
+              <span class="service-tag">WEB</span>
+              <h3 class="service-name">Página web completa</h3>
+              <p class="service-pitch">El sitio que responde antes de que pregunten.</p>
+              <p class="service-desc">Quiénes son, qué ofrecen, cómo contactarlos — resuelto con un diseño que transmite profesionalismo desde el primer segundo. Para el negocio que ya tiene trayectoria y necesita que su web hable el mismo idioma que su local.</p>
+              <p class="service-for">Ideal si tenés una empresa, clínica o local con historia y tu web actual no la representa.</p>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <div class="service-card-inner">
+              <span class="service-tag">LND</span>
+              <h3 class="service-name">Landing pages</h3>
+              <p class="service-pitch">Una sola acción, bien resuelta.</p>
+              <p class="service-desc">Páginas enfocadas en vender un producto puntual, captar leads de una campaña o promocionar un evento. Sin distracciones, sin menú de diez opciones — pensadas para convertir, no para navegar.</p>
+              <p class="service-for">Ideal si lanzás un producto, una promo o una campaña con fecha límite.</p>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <div class="service-card-inner">
+              <span class="service-tag">SHP</span>
+              <h3 class="service-name">Tiendas online</h3>
+              <p class="service-pitch">Que vender no dependa de un local abierto.</p>
+              <p class="service-desc">Catálogo, carrito y proceso de compra simple, para negocios que quieren vender directamente desde internet sin fricción para el cliente ni dolores de cabeza para el dueño.</p>
+              <p class="service-for">Ideal si querés vender fuera del horario de tu local, o directamente no tenés uno.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== MARCAS (separador) ===========================
+         Carrusel infinito a modo de divisor entre "Servicios" y "Cómo trabajamos"
+         (de paso rompe la única repetición de fondo oscuro consecutivo del sitio).
+         Por ahora, sin clientes reales todavía, se repite el propio nombre
+         CRIMSES varias veces (en vez de logos ajenos inventados) para que
+         el carrusel se vea lleno y con el loop parejo. Cuando tengas logos
+         reales de clientes, reemplazá cada <li> por un
+         <img class="marquee-logo" src="..." alt="Nombre del cliente" /> dentro
+         de AMBAS <ul> (son dos copias idénticas para que el loop sea parejo). -->
+    <section class="brands-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <ul class="marquee-list">
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+        </ul>
+        <ul class="marquee-list" aria-hidden="true">
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+          <li>CRIMSES<img class="marquee-icon" src="logo-crimses/logo-solo.png" alt="" loading="lazy" width="28" height="28" /></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================== CÓMO TRABAJAMOS =========================== -->
+    <section id="como-trabajamos" class="roadmap">
+      <div class="container">
+        <p class="kicker" data-reveal>// cómo trabajamos</p>
+        <h2 data-reveal>De tu primer mensaje a tu propia página web: <em>el camino completo.</em></h2>
+
+        <!--
+          Mapa animado (solo desktop, ver @media 960px en styles.css): el
+          cohete recorre el camino de mundo en mundo, en bucle infinito
+          (initRoadmap en main.js). Si el usuario prefiere menos movimiento,
+          el cohete se oculta y el mapa/los pasos quedan estáticos y legibles.
+          Cada mundo es un botón: al pasar el mouse (o el foco de teclado)
+          por encima se abre una burbuja con la explicación de ese paso
+          (ver .roadmap-world:hover / :focus-within en styles.css).
+        -->
+        <div class="roadmap-map" data-reveal>
+          <svg class="roadmap-path" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+            <path id="roadmap-line" d="M 40 361 C 65.83 321.17, 140 140.17, 195 122 C 250 103.83, 310.83 258.33, 370 252 C 429.17 245.67, 487.5 95.17, 550 84 C 612.5 72.83, 676.67 180.83, 745 185 C 813.33 189.17, 924.17 121.67, 960 109" />
+          </svg>
+
+          <div class="roadmap-rocket" data-roadmap-rocket aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="100%" height="100%" fill="none">
+              <path d="M32 44c-3.5 3-5 7-5 12 2.3-1.4 3.8-3 5-5.2 1.2 2.2 2.7 3.8 5 5.2 0-5-1.5-9-5-12Z" fill="var(--coral-quemado)"/>
+              <path d="M32 2c8 6 12 15 12 26 0 5.5-1.6 10-4 13.5-1.7-1.2-4.4-2-8-2s-6.3 0.8-8 2c-2.4-3.5-4-8-4-13.5C20 17 24 8 32 2Z" fill="var(--coral)"/>
+              <circle cx="32" cy="24" r="5.5" fill="var(--niebla)" stroke="var(--marino)" stroke-width="2"/>
+              <path d="M20 34c-4 1-7 4-8 9 4-0.5 7.5-1.6 10-3.6" fill="var(--marino)"/>
+              <path d="M44 34c4 1 7 4 8 9-4-0.5-7.5-1.6-10-3.6" fill="var(--marino)"/>
+            </svg>
+          </div>
+
+          <ol class="roadmap-worlds">
+            <li class="roadmap-world roadmap-world-first" style="--wx:4%; --wy:86%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">1</span>
+                <span class="roadmap-label">Contactanos</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>Nos escribís y nos contás qué necesita tu negocio.</p>
+              </div>
+            </li>
+            <li class="roadmap-world" style="--wx:19.5%; --wy:29%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">2</span>
+                <span class="roadmap-label">Diagnóstico</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>Miramos tu web actual (o la falta de una) y a tu competencia.</p>
+              </div>
+            </li>
+            <li class="roadmap-world" style="--wx:37%; --wy:60%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">3</span>
+                <span class="roadmap-label">Diseño</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>Te mostramos cómo va a quedar, antes de tocar una línea de código.</p>
+              </div>
+            </li>
+            <li class="roadmap-world" style="--wx:55%; --wy:20%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">4</span>
+                <span class="roadmap-label">Desarrollo</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>Construimos la web de punta a punta, rápido y prolijo.</p>
+              </div>
+            </li>
+            <li class="roadmap-world" style="--wx:74.5%; --wy:44%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">5</span>
+                <span class="roadmap-label">Revisión</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>La probamos juntos y afinamos hasta que esté perfecta.</p>
+              </div>
+            </li>
+            <li class="roadmap-world roadmap-world-final" style="--wx:96%; --wy:26%;">
+              <button type="button" class="roadmap-world-btn">
+                <span class="roadmap-num">6</span>
+                <span class="roadmap-label">Producto final, vos contento</span>
+              </button>
+              <div class="roadmap-bubble" role="tooltip">
+                <p>Tu web en vivo, funcionando, y vos sin dolores de cabeza.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Lista vertical (mobile): mismo contenido, sin mapa ni cohete -->
+        <ol class="roadmap-list-mobile">
+          <li><span class="roadmap-num">1</span><div><strong>Contactanos</strong><p>Nos escribís y nos contás qué necesita tu negocio.</p></div></li>
+          <li><span class="roadmap-num">2</span><div><strong>Diagnóstico</strong><p>Miramos tu web actual (o la falta de una) y a tu competencia.</p></div></li>
+          <li><span class="roadmap-num">3</span><div><strong>Diseño</strong><p>Te mostramos cómo va a quedar, antes de tocar una línea de código.</p></div></li>
+          <li><span class="roadmap-num">4</span><div><strong>Desarrollo</strong><p>Construimos la web de punta a punta, rápido y prolijo.</p></div></li>
+          <li><span class="roadmap-num">5</span><div><strong>Revisión y ajustes</strong><p>La probamos juntos y afinamos hasta que esté perfecta.</p></div></li>
+          <li><span class="roadmap-num">6</span><div><strong>Producto finalizado, vos contento</strong><p>Tu web en vivo, funcionando, y vos sin dolores de cabeza.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================== EJEMPLOS DE DISEÑO ===========================
+         Carrusel de banners: cada slide es un banner (nav + título + botón +
+         visual, tipo hero real) de uno de los 4 proyectos demo — son
+         maquetas/ilustraciones de ejemplo, no clientes reales (el badge
+         "Ejemplo" lo deja claro). Se desliza solo cada pocos segundos, se
+         puede pausar, saltar a un slide con los puntitos o pasar con las
+         flechas del teclado (con foco en el carrusel) o deslizando en
+         mobile. Toda la lógica vive en initWorkCarousel() en main.js —
+         transform puro, sin librerías.
+
+         CÓMO AGREGAR/EDITAR UN TRABAJO:
+         1. Copiá un <li class="work-slide"> completo.
+         2. Cambiá data-title / data-desc del <li> (son los textos que se ven
+            arriba del carrusel cuando ese slide está activo) y el texto de
+            .work-banner-url (debe ser coherente con data-title).
+         3. El contenido visual de .work-banner-hero puede ser:
+            a) un wireframe armado en HTML/CSS con las clases wfb-* (nav +
+               copy + un wfb-art--*), como en los slides 2 a 4; o
+            b) una imagen (real o ilustrativa) — agregá la clase
+               work-banner-hero--photo al div y adentro una sola
+               <img class="work-banner-photo" src="assets/img/TU-IMAGEN.webp" ...>;
+               se recorta sola con object-fit: cover (ver el slide 1,
+               "Restaurante de autor", que ya usa este patrón).
+         4. Si es un trabajo REAL de un cliente: borrá el
+            <span class="work-banner-badge">Ejemplo</span>.
+    -->
+    <section id="portfolio" class="work">
+      <div class="container work-head">
+        <p class="kicker" data-reveal>// ejemplos de diseño</p>
+        <h2 data-reveal>El banner principal es lo primero que ve un cliente. Así lo resolvemos.</h2>
+        <div class="work-caption" data-reveal>
+          <h3 data-work-title>Cervecería artesanal</h3>
+          <p data-work-desc>Landing de lanzamiento de producto con ficha técnica y compra directa.</p>
+        </div>
+      </div>
+
+      <div class="work-carousel" data-work-carousel aria-roledescription="carrusel" aria-label="Ejemplos de diseño">
+        <div class="work-carousel-viewport" data-work-viewport>
+          <ul class="work-carousel-track" data-work-track>
+
+            <li class="work-slide is-active" data-work-slide
+              data-title="Cervecería artesanal"
+              data-desc="Landing de lanzamiento de producto con ficha técnica y compra directa.">
+              <article class="work-banner work-banner--coral" aria-label="Cervecería artesanal">
+                <div class="work-banner-chrome">
+                  <span class="work-banner-dots"><i></i><i></i><i></i></span>
+                  <span class="work-banner-url">crimses.dev/demo/cerveceria</span>
+                  <span class="work-banner-badge">Ejemplo</span>
+                </div>
+                <div class="work-banner-hero work-banner-hero--photo">
+                  <img class="work-banner-photo" src="assets/img/pagina-cerveza.webp"
+                    alt="Banner ilustrativo de una cervecería artesanal llamada Brujería Brewing Co., con una botella de cerveza IPA y botón de compra." loading="lazy" width="2688" height="1592" />
+                </div>
+              </article>
+            </li>
+
+            <li class="work-slide" data-work-slide
+              data-title="Tienda de indumentaria"
+              data-desc="Ficha de producto con talles, colores y compra directa.">
+              <article class="work-banner work-banner--marino" aria-label="Tienda de indumentaria">
+                <div class="work-banner-chrome">
+                  <span class="work-banner-dots"><i></i><i></i><i></i></span>
+                  <span class="work-banner-url">crimses.dev/demo/indumentaria</span>
+                  <span class="work-banner-badge">Ejemplo</span>
+                </div>
+                <div class="work-banner-hero work-banner-hero--photo">
+                  <img class="work-banner-photo" src="assets/img/pagina-ropa.webp"
+                    alt="Banner ilustrativo de una tienda de indumentaria llamada KÜL, con una campera de abrigo y selectores de talle, color y precio." loading="lazy" width="2944" height="1440" />
+                </div>
+              </article>
+            </li>
+
+            <li class="work-slide" data-work-slide
+              data-title="Heladería artesanal"
+              data-desc="Landing de producto con descripción, precio y compra directa.">
+              <article class="work-banner work-banner--coral" aria-label="Heladería artesanal">
+                <div class="work-banner-chrome">
+                  <span class="work-banner-dots"><i></i><i></i><i></i></span>
+                  <span class="work-banner-url">crimses.dev/demo/heladeria</span>
+                  <span class="work-banner-badge">Ejemplo</span>
+                </div>
+                <div class="work-banner-hero work-banner-hero--photo">
+                  <img class="work-banner-photo" src="assets/img/pagina-helado.webp"
+                    alt="Banner ilustrativo de una heladería artesanal llamada Fruitsí, con un helado de dulce de leche y botón de compra." loading="lazy" width="2804" height="1536" />
+                </div>
+              </article>
+            </li>
+
+            <li class="work-slide" data-work-slide
+              data-title="Estudio de arquitectura"
+              data-desc="Portfolio de proyectos con cifras de trayectoria y contacto directo.">
+              <article class="work-banner work-banner--marino" aria-label="Estudio de arquitectura">
+                <div class="work-banner-chrome">
+                  <span class="work-banner-dots"><i></i><i></i><i></i></span>
+                  <span class="work-banner-url">crimses.dev/demo/arquitectura</span>
+                  <span class="work-banner-badge">Ejemplo</span>
+                </div>
+                <div class="work-banner-hero work-banner-hero--photo">
+                  <img class="work-banner-photo" src="assets/img/pagina-arquitectura.webp"
+                    alt="Banner ilustrativo de un estudio de arquitectura llamado Estudio Hábitat, con una vivienda moderna al atardecer y cifras de trayectoria." loading="lazy" width="2742" height="1568" />
+                </div>
+              </article>
+            </li>
+            <!-- fin de trabajos -->
+          </ul>
+        </div>
+
+        <div class="work-carousel-controls">
+          <div class="work-carousel-dots" data-work-dots>
+            <button class="work-dot" type="button" data-work-dot aria-label="Ver Cervecería artesanal" aria-current="true"><span></span></button>
+            <button class="work-dot" type="button" data-work-dot aria-label="Ver Tienda de indumentaria"><span></span></button>
+            <button class="work-dot" type="button" data-work-dot aria-label="Ver Heladería artesanal"><span></span></button>
+            <button class="work-dot" type="button" data-work-dot aria-label="Ver Estudio de arquitectura"><span></span></button>
+          </div>
+          <button class="work-play" type="button" data-work-play aria-label="Pausar reproducción automática">
+            <svg data-icon-pause viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
+            <svg data-icon-play viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" hidden><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== RESEÑAS ===========================
+         Sacada de la página por ahora (2026-09-02): sin reseñas reales
+         todavía, se decidió no mostrar la versión de ejemplo. El HTML
+         completo (carrusel de tarjetas + instrucciones para cargar una
+         reseña real) queda en el historial de git / respaldo del proyecto
+         — cuando haya reseñas reales, se puede volver a armar la sección
+         siguiendo el mismo patrón que "Ejemplos de diseño". No te
+         olvides de volver a agregar el link "Reseñas" al nav (arriba) y
+         al menú mobile si la reponés. -->
+
+    <!-- =========================== CONTACTO =========================== -->
+    <section id="contacto" class="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy" data-reveal>
+          <p class="kicker">// hablemos</p>
+          <h2>Contanos de tu negocio. Te contamos cómo se vería mejor.</h2>
+          <p>Escribinos y coordinamos una charla sin compromiso sobre qué necesita tu presencia digital hoy.</p>
+
+          <ul class="contact-list">
+            <li>
+              <span class="contact-label">Email</span>
+              <a href="mailto:ccrimses@gmail.com" data-cursor-link>ccrimses@gmail.com</a>
+            </li>
+            <li>
+              <span class="contact-label">Instagram</span>
+              <a href="https://www.instagram.com/crimses.arg/" target="_blank" rel="noopener" data-cursor-link>@crimses.arg</a>
+            </li>
+            <li>
+              <span class="contact-label">WhatsApp</span>
+              <span class="contact-pending">Próximamente</span>
+              <!-- Cuando se cree el número, reemplazar el <span class="contact-pending">
+                   de arriba por:
+                   <a href="https://wa.me/549XXXXXXXXXX" target="_blank" rel="noopener">Escribinos</a> -->
+            </li>
+            <li>
+              <span class="contact-label">Ubicación</span>
+              <span>Argentina</span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="contact-form" data-reveal data-contact-form novalidate>
+          <div class="form-row">
+            <label for="cf-name">Nombre</label>
+            <input id="cf-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="form-row">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="form-row">
+            <label for="cf-business">Rubro de tu negocio</label>
+            <input id="cf-business" name="business" type="text" placeholder="Restaurante, clínica, carpintería…" />
+          </div>
+          <div class="form-row">
+            <label for="cf-message">Contanos un poco</label>
+            <textarea id="cf-message" name="message" rows="4" required></textarea>
+          </div>
+
+          <!-- Sin backend todavía: el envío lo simula main.js (initContactForm).
+               Cuando exista un endpoint real, reemplazar el bloque marcado
+               "// TODO backend" en main.js por un fetch() a tu servicio de
+               formularios (Formspree, backend propio, etc.) -->
+          <button type="submit" class="btn btn-primary btn-block">Enviar mensaje</button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year>2026</span> CRIMSES — hecho por Felipe &amp; Lautaro.</span>
+      <a href="mailto:ccrimses@gmail.com" data-cursor-link>ccrimses@gmail.com</a>
+    </div>
+  </footer>
+
+  <script defer src="lib/gsap.min.js"></script>
+  <script defer src="lib/ScrollTrigger.min.js"></script>
+  <script defer src="lib/manifest.js"></script>
+  <script defer src="main.js?v=20260901a"></script>
+</body>
+</html>

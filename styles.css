@@ -1,0 +1,2125 @@
+/* =============================================================
+   CRIMSES — styles.css
+   1. Tokens
+   2. Reset & base
+   3. Utilities
+   4. Typography
+   5. Components (botones, nav, cursor, splash)
+   6. Secciones (hero + mock-browser, about, services, portfolio,
+      testimonials, contact, footer)
+   7. Effects (reveals, keyframes)
+   8. Responsive
+   9. Reduced-motion
+   ============================================================= */
+
+/* =============================================================
+   1. Tokens
+   ============================================================= */
+:root {
+  /* Paleta — navy dominante, coral en dosis quirúrgicas */
+  --tinta: #0F1830;       /* fondo oscuro dominante */
+  --marino: #1B2A4A;      /* panel sobre tinta / texto de marca sobre claro */
+  --niebla: #EEF0F4;      /* fondo claro (alterna secciones) */
+  --hueso: #F7F6F2;       /* texto sobre oscuro / superficie de tarjeta clara */
+  --coral: #FF6F3C;       /* acento único */
+  --coral-quemado: #D9531F;
+
+  --ink: #10192E;
+  --ink-mute: rgba(16, 25, 46, 0.64);
+  --ink-faint: rgba(16, 25, 46, 0.4);
+
+  --text-dark: var(--hueso);
+  --text-dark-mute: rgba(247, 246, 242, 0.66);
+  --text-dark-faint: rgba(247, 246, 242, 0.42);
+
+  --line-light: rgba(16, 25, 46, 0.12);
+  --line-dark: rgba(247, 246, 242, 0.14);
+
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --body-font: "Manrope", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --nav-h: 76px;
+  --container: 1240px;
+  --gutter: 1.5rem;
+
+  --reveal-y: 28px;
+}
+
+/* =============================================================
+   2. Reset & base
+   ============================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  tab-size: 2;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--tinta);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
+}
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--display);
+  text-wrap: balance;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+::selection {
+  background: var(--coral);
+  color: var(--hueso);
+}
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* =============================================================
+   3. Utilities
+   ============================================================= */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--coral);
+  color: var(--tinta);
+  z-index: 9999;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: top 0.3s var(--ease-out);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 0.9rem;
+}
+section .kicker {
+  display: inline-block;
+}
+
+/* =============================================================
+   4. Typography
+   ============================================================= */
+.hero-title {
+  font-size: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  max-width: 18ch;
+}
+.hero-line {
+  display: block;
+}
+.hero-line-accent {
+  color: var(--coral);
+}
+section h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 600;
+  max-width: 22ch;
+  margin-bottom: 1.5rem;
+}
+section h2 em {
+  font-style: normal;
+  color: var(--coral);
+}
+h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.hero-sub,
+.about-copy p,
+.contact-copy p {
+  font-size: 1.125rem;
+  color: var(--text-dark-mute);
+  max-width: 46ch;
+}
+.about-copy p,
+.contact-copy p {
+  color: var(--ink-mute);
+}
+
+/* =============================================================
+   5. Componentes
+   ============================================================= */
+
+/* --- Botones --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out),
+    background 0.3s var(--ease-out), color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn-primary {
+  background: var(--coral);
+  color: var(--tinta);
+  box-shadow: 0 10px 24px rgba(255, 111, 60, 0.28);
+}
+.btn-primary:hover {
+  background: var(--coral-quemado);
+  box-shadow: 0 14px 30px rgba(255, 111, 60, 0.36);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--line-dark);
+}
+.btn-ghost:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+.btn-sm {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
+}
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+.btn-icon {
+  font-size: 0.75em;
+}
+
+/* --- Nav --- */
+.nav {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 500;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out),
+    backdrop-filter 0.45s var(--ease-out);
+}
+.nav.is-solid {
+  background: rgba(15, 24, 48, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 1px 0 var(--line-dark);
+}
+.nav-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+}
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.95rem;
+  color: var(--text-dark-mute);
+}
+.nav-links a {
+  position: relative;
+  padding-block: 0.3rem;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--coral);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out);
+}
+.nav-links a:hover {
+  color: var(--text-dark);
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.nav-cta {
+  display: none;
+}
+.nav-toggle {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: transform 0.35s var(--ease-out), opacity 0.35s var(--ease-out);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.nav-mobile {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  background: var(--tinta);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 2.5rem var(--gutter);
+  font-size: 1.35rem;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  z-index: 490;
+}
+.nav-mobile.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* --- Cursor personalizado --- */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out);
+}
+.cursor.is-ready {
+  opacity: 1;
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+}
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--coral);
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--text-dark-mute);
+  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+}
+.cursor.is-link .cursor-ring {
+  width: 54px;
+  height: 54px;
+  border-color: var(--coral);
+  background: rgba(255, 111, 60, 0.1);
+}
+.cursor.is-card .cursor-ring {
+  width: 90px;
+  height: 90px;
+  border-color: transparent;
+  background: rgba(255, 111, 60, 0.08);
+}
+.cursor.is-link .cursor-dot,
+.cursor.is-card .cursor-dot {
+  background: var(--coral);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* --- Splash --- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: splashSafety 0.01s 4.5s forwards;
+}
+.splash-mark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--hueso);
+  opacity: 0;
+}
+.splash.is-out {
+  transition: clip-path 0.7s var(--ease-in), opacity 0.5s var(--ease-out) 0.2s;
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes splashSafety {
+  to {
+    opacity: 0;
+    pointer-events: none;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* =============================================================
+   6. Secciones
+   ============================================================= */
+
+/* --- Hero --- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--nav-h) + 2.5rem) 3rem;
+  overflow: clip;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 70%;
+  background: radial-gradient(45% 55% at 50% 30%, rgba(255, 111, 60, 0.16), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3.5rem;
+  align-items: center;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+}
+.hero-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.mock-caption {
+  font-size: 0.85rem;
+  color: var(--text-dark-faint);
+  text-align: center;
+}
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid var(--line-dark);
+  border-radius: 12px;
+}
+.hero-scroll-cue span {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 6px;
+  background: var(--coral);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  animation: scrollCue 1.8s var(--ease-soft) infinite;
+}
+@keyframes scrollCue {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  70% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+
+/* --- Comparador antes/después (elemento firma) ---
+   Dos .mock-browser superpuestos dentro de .compare. El de abajo
+   (--before) define el tamaño del bloque; el de arriba (--after) se
+   recorta con clip-path según --pos (0%–100%), controlado por
+   initCompareSlider() en main.js: arrastre con puntero, teclado
+   (flechas/Home/End) o click directo sobre la franja. */
+.compare {
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), 0 2px 0 rgba(255, 255, 255, 0.04) inset;
+  cursor: ew-resize;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.mock-browser {
+  background: var(--hueso);
+  border-radius: 16px;
+  overflow: hidden;
+}
+/* z-index explícito a propósito: sin él, en algunos navegadores el motor
+   gráfico decide el orden de pintado entre "antes" y "después" por cómo
+   promociona cada uno a su propia capa (por el overflow:hidden + fondo en
+   degradé del hero de "después"), y terminaba pintando "después" ENCIMA
+   de "antes" en esa franja aunque el clip-path diga que "antes" debería
+   taparlo — de ahí el efecto de superposición. Con z-index fijo el orden
+   queda garantizado sin depender de esa heurística.
+   will-change: clip-path también a propósito: le avisa al navegador que
+   ESTE recorte se anima, así lo promueve a su propia capa estable de
+   entrada — sin el aviso, el texto se puede re-rasterizar con un
+   antialiasing levemente distinto en cada frame del arrastre, lo que se
+   percibe como si las letras temblaran/cambiaran un poco al mover el
+   mango. El z-index ya deja fijo el orden de pintado, así que esto no
+   reintroduce el bug anterior. */
+.mock-browser--before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  will-change: clip-path;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.mock-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #e4e2dc;
+}
+.mock-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #c9c6bd;
+}
+.mock-url {
+  margin-left: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: #6b6960;
+  background: #f3f2ee;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+}
+.mock-browser-body {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+/* Logo, nav, título, subtítulo y CTA tienen texto real, pero cada uno
+   vive en una caja de tamaño FIJO con overflow:hidden — a propósito: el
+   comparador antes/después se puede arrastrar a cualquier posición, y
+   si el corte cae a mitad de palabra, lo único que pasa es que ese
+   texto se recorta (como cualquier UI real con overflow:hidden), en vez
+   de que dos tipografías muy distintas del MISMO texto se aplasten una
+   contra otra en el mismo punto — que es lo que causaba el empalme
+   ilegible. La caja de antes y la de después tienen tamaño propio; lo
+   que nunca cambia es que cada una está contenida y recortada. */
+.mock-logo {
+  width: 104px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #7c3aed;
+}
+.mock-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+.mock-nav span {
+  display: block;
+  height: 14px;
+  line-height: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: Arial, sans-serif;
+  font-size: 0.62rem;
+  color: #4a4a4a;
+}
+.mock-hero {
+  margin-top: 1.6rem;
+  padding: 1.4rem 1.1rem;
+  background: linear-gradient(135deg, #ede9fe, #fce7f3);
+  border-radius: 4px;
+}
+.mock-hero-title {
+  width: 100%;
+  height: 42px;
+  overflow: hidden;
+  line-height: 1.2;
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3b0764;
+}
+.mock-hero-sub {
+  margin-top: 0.5rem;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  line-height: 1.35;
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+.mock-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 118px;
+  height: 34px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: #dc2626;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+.mock-cards {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.mock-card {
+  flex: 1;
+  height: 46px;
+  background: #f1f1f1;
+  border: 1px solid #d4d4d4;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* --- Look "antes": deliberadamente desprolijo, a propósito, para
+   que el contraste con "después" sea evidente sin leer una sola
+   palabra (misma estructura y textos — solo cambia el trato visual) --- */
+.mock-browser--before {
+  background: #f2f0e6;
+}
+/* Sin transform: rotate() en NADA que tenga texto real, a propósito: el
+   slider revela el "antes" con una línea de corte perfectamente vertical,
+   y un texto inclinado revelado con una línea recta aparece letra por
+   letra a alturas ligeramente distintas mientras arrastrás — se percibe
+   como si las letras "temblaran" o cambiaran solas. El look desprolijo
+   se sostiene igual con tipografía/color/subrayados; la inclinación se
+   deja solo en las tarjetas de abajo, que son bloques de color sin texto
+   y ahí no genera ese efecto. */
+.mock-browser--before .mock-logo {
+  width: 108px;
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+  color: #1d4ed8;
+  text-shadow: 1px 1px 0 #fbbf24, -1px -1px 0 #ef4444;
+}
+.mock-browser--before .mock-nav {
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+.mock-browser--before .mock-nav span {
+  font-family: "Comic Sans MS", cursive;
+  border: 1px dashed #9a9a90;
+  border-radius: 2px;
+  padding-inline: 0.3rem;
+  text-decoration: underline;
+}
+.mock-browser--before .mock-nav span:nth-child(1) {
+  width: 52px;
+  color: #dc2626;
+}
+.mock-browser--before .mock-nav span:nth-child(2) {
+  width: 72px;
+  color: #15803d;
+  transform: translateY(4px);
+}
+.mock-browser--before .mock-nav span:nth-child(3) {
+  width: 62px;
+  color: #7c3aed;
+}
+.mock-browser--before .mock-hero {
+  background: linear-gradient(135deg, #fde047 0%, #fb7185 48%, #a78bfa 100%);
+  border: 3px dashed #16a34a;
+  border-radius: 2px;
+}
+.mock-browser--before .mock-hero-title {
+  font-family: "Comic Sans MS", cursive;
+  font-size: 1rem;
+  color: #7c2d12;
+  text-shadow: 1px 1px 0 #fff;
+}
+.mock-browser--before .mock-hero-title .mock-hero-title-accent {
+  color: inherit;
+  font-style: normal;
+}
+.mock-browser--before .mock-hero-sub {
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: #3f3f3f;
+}
+.mock-browser--before .mock-cta {
+  background: linear-gradient(180deg, #4ade80, #15803d);
+  border: 2px outset #86efac;
+  text-transform: uppercase;
+  font-family: "Arial Black", Arial, sans-serif;
+}
+.mock-browser--before .mock-cards {
+  align-items: flex-end;
+}
+.mock-browser--before .mock-card {
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+.mock-browser--before .mock-card:nth-child(1) {
+  background: #fde68a;
+  border-color: #d4a017;
+  height: 40px;
+  transform: rotate(-2deg);
+}
+.mock-browser--before .mock-card:nth-child(2) {
+  background: #bbf7d0;
+  border-color: #16a34a;
+  height: 54px;
+  transform: rotate(1.5deg) translateY(-6px);
+}
+.mock-browser--before .mock-card:nth-child(3) {
+  background: #fecaca;
+  border-color: #dc2626;
+  height: 34px;
+  transform: rotate(-1deg);
+}
+
+/* --- Look "después": negro / blanco / dorado, la misma paleta elegante
+   del banner de "Restaurante de autor" en Trabajos realizados — a
+   propósito NO ligada a la identidad navy/coral de CRIMSES: la idea es
+   que se lea como el trabajo de un estudio de diseño para ESE negocio en
+   particular, no como una plantilla propia. */
+.mock-browser--after {
+  background: #0a0a0a;
+}
+.mock-browser--after::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #b8935a, #e8cd94, #b8935a);
+}
+.mock-browser--after .mock-browser-bar {
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.18);
+}
+.mock-browser--after .mock-dot {
+  background: rgba(255, 255, 255, 0.2);
+}
+.mock-browser--after .mock-url {
+  background: rgba(212, 175, 106, 0.08);
+  color: rgba(245, 241, 232, 0.6);
+}
+.mock-browser--after .mock-url::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+.mock-browser--after .mock-logo {
+  width: auto;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #f5f1e8;
+}
+.mock-browser--after .mock-nav span {
+  width: auto;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(245, 241, 232, 0.55);
+}
+.mock-browser--after .mock-nav span:nth-child(1) {
+  position: relative;
+  color: #d4af6a;
+  font-weight: 700;
+}
+.mock-browser--after .mock-nav span:nth-child(1)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1.5px;
+  background: #d4af6a;
+}
+.mock-browser--after .mock-hero {
+  position: relative;
+  overflow: hidden;
+  background: #0f0f0f;
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  border-radius: 10px;
+}
+.mock-browser--after .mock-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(65% 85% at 88% 8%, rgba(212, 175, 106, 0.22), transparent 70%);
+  pointer-events: none;
+}
+.mock-browser--after .mock-hero-title {
+  position: relative;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  color: #f5f1e8;
+}
+.mock-browser--after .mock-hero-title .mock-hero-title-accent {
+  display: block;
+  font-style: italic;
+  color: #d4af6a;
+}
+.mock-browser--after .mock-hero-sub {
+  position: relative;
+  font-family: var(--body-font);
+  color: rgba(245, 241, 232, 0.5);
+}
+.mock-browser--after .mock-cta {
+  position: relative;
+  background: linear-gradient(135deg, #d4af6a, #b8935a);
+  color: #1a1408;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(212, 175, 106, 0.35);
+}
+.mock-browser--after .mock-cards {
+  position: relative;
+  align-items: stretch;
+}
+.mock-browser--after .mock-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #131313, #0a0a0a);
+  border: 1px solid rgba(212, 175, 106, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+}
+.mock-browser--after .mock-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #b8935a, #e8cd94);
+}
+
+/* --- Mango de arrastre + etiquetas antes/después --- */
+.compare-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  transform: translateX(-50%);
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  touch-action: none;
+}
+.compare-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%);
+}
+/* Fondo hueso + borde coral (no coral sólido) a propósito: el mango tiene
+   que leerse como un control de UI flotando encima, no como parte del
+   mock — con coral sólido se confundía con el botón CTA cuando caía
+   encima de él. */
+.compare-handle-grip {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--hueso);
+  color: var(--coral-quemado);
+  border: 2px solid var(--coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(255, 255, 255, 0.55);
+  transition: transform 0.2s var(--ease-out);
+}
+.compare-handle:hover .compare-handle-grip,
+.compare-handle:focus-visible .compare-handle-grip {
+  transform: scale(1.1);
+}
+.compare-handle:focus-visible {
+  outline: none;
+}
+.compare-handle:focus-visible .compare-handle-grip {
+  box-shadow: 0 0 0 3px var(--hueso), 0 0 0 5px var(--coral);
+}
+.compare-tag {
+  position: absolute;
+  top: 0.75rem;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.compare-tag--before {
+  left: 0.75rem;
+  background: rgba(20, 20, 25, 0.6);
+  color: #fff;
+}
+.compare-tag--after {
+  right: 0.75rem;
+  background: var(--coral);
+  color: #fff;
+}
+
+/* --- About --- */
+.about {
+  background: var(--niebla);
+  color: var(--ink);
+  padding-block: 6rem;
+}
+.about-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: start;
+}
+.about-media {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.about-avatars {
+  display: flex;
+}
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--hueso);
+  background: var(--marino);
+  border: 4px solid var(--niebla);
+  transition: transform 0.5s var(--ease-bounce);
+}
+.avatar-alt {
+  background: var(--coral);
+  margin-left: -22px;
+}
+.about-media:hover .avatar {
+  transform: translateY(-4px);
+}
+.about-names {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+.about-role {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.about-copy {
+  position: relative;
+}
+.about-copy h2 {
+  color: var(--ink);
+}
+.about-copy p + p {
+  margin-top: 1.1rem;
+}
+
+/* Cohete decorativo: ocupa el espacio en blanco a la derecha del texto
+   (46ch de max-width deja aire en columnas anchas) y sube en bucle. */
+.about-rocket {
+  display: none;
+  pointer-events: none;
+}
+@keyframes about-rocket-fly {
+  0% {
+    transform: translate(0, 0) rotate(-32deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(60px, -170px) rotate(-36deg);
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(130px, -360px) rotate(-30deg);
+    opacity: 0;
+  }
+}
+
+/* --- Services --- */
+.services {
+  background: var(--tinta);
+  padding-block: 6rem;
+}
+.services h2 {
+  color: var(--text-dark);
+}
+/*
+  Grid de 3 tarjetas, todo el contenido visible sin interacción (antes era
+  un acordeón que había que tocar). Refuerza el "tres formas" del título:
+  las tres opciones se ven de una, lado a lado en desktop, apiladas en
+  mobile (ver @media 860px).
+*/
+.service-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+/*
+  Se probaron dos versiones de un borde animado (brillo radial finito y
+  luego un anillo conic-gradient girando) y ninguna terminó de convencer.
+  Versión final, más simple: al pasar el mouse, la tarjeta se levanta un
+  poco y por detrás aparece un resplandor naranja muy tenue (un halo
+  difuso, no un borde definido) + una sombra suave para dar profundidad.
+  Todo con box-shadow en .service-card:hover, sin pseudo-elementos ni
+  animaciones en bucle.
+*/
+.service-card {
+  position: relative;
+  border-radius: 16px;
+  transition: box-shadow 0.35s var(--ease-out);
+}
+/*
+  Ojo: no se usa transform/translateY acá aunque la tarjeta se sienta
+  "elevable" — data-reveal (GSAP) le deja un style="transform:..." inline
+  al terminar de aparecer, y un inline style le gana a cualquier regla de
+  hoja de estilos sin importar especificidad, así que un :hover con
+  transform quedaría muerto. El efecto queda solo en box-shadow, que no
+  tiene ese conflicto.
+*/
+.service-card:hover {
+  box-shadow:
+    0 0 55px rgba(255, 111, 60, 0.16),
+    0 20px 40px rgba(0, 0, 0, 0.25);
+}
+.service-card-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--marino);
+  border-radius: 13px;
+  padding: 2.25rem 1.75rem;
+}
+.service-tag {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--coral);
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.service-name {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.6rem;
+}
+.service-pitch {
+  color: var(--coral);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+.service-desc {
+  color: var(--text-dark-mute);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.service-for {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-dark);
+  color: var(--coral);
+  font-size: 0.85rem;
+}
+@media (max-width: 860px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Marcas: carrusel infinito (divisor entre Servicios y Cómo trabajamos) ---
+   Fondo claro (--niebla) a propósito: separa dos secciones oscuras (Servicios
+   y Cómo trabajamos) que si no quedarían pegadas del mismo color.
+   Estructura: .marquee-track tiene dos <ul> idénticas puestas una al lado de
+   la otra (ancho = max-content, el doble de una lista). Animar translateX de
+   0% a -50% mueve exactamente el ancho de UNA lista, así que cuando termina
+   el loop se ve idéntico al inicio — el corte es invisible. */
+.brands-marquee {
+  background: var(--niebla);
+  padding-block: 3rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+@media (hover: hover) and (pointer: fine) {
+  .brands-marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.marquee-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 0.4;
+  white-space: nowrap;
+  padding: 0 2.5rem;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+/* El ícono va DENTRO del <li>, junto al texto — el opacity/filter de acá
+   arriba ya se aplica a todo el contenido del <li> (ícono incluido), así
+   que la imagen no necesita su propio opacity/grayscale (si lo tuviera,
+   se sumaría al del <li> y quedaría mucho más tenue que el texto). */
+.marquee-icon {
+  height: 1.5em;
+  width: auto;
+  flex: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-list li:hover {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+}
+/* Cuando reemplaces los <li> por <img class="marquee-logo">, este estilo ya
+   deja los logos con la misma altura pareja y el mismo hover de "a color". */
+.marquee-logo {
+  height: 28px;
+  width: auto;
+  opacity: 0.4;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-logo:hover {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+}
+@media (max-width: 640px) {
+  .marquee-list li {
+    font-size: 1.15rem;
+    padding: 0 1.5rem;
+  }
+}
+
+/* --- Cómo trabajamos (roadmap) --- */
+.roadmap {
+  position: relative;
+  background: var(--tinta);
+  padding-block: 6rem;
+}
+.roadmap > .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+}
+
+/* Mapa animado: oculto por default, se activa en desktop (ver @media 960px) */
+.roadmap-map {
+  display: none;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1000 / 420;
+  margin-top: 4rem;
+}
+.roadmap-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.roadmap-path path {
+  fill: none;
+  stroke: var(--line-dark);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 2 18;
+}
+.roadmap-rocket {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform, opacity;
+}
+.roadmap-worlds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.roadmap-world {
+  position: absolute;
+  left: var(--wx);
+  top: var(--wy);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+}
+/* El círculo + la etiqueta viven en un <button>: cada mundo es clickeable
+   y abre una burbuja con la explicación de ese paso (initRoadmapBubbles) */
+.roadmap-world-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.roadmap-world-btn:focus-visible .roadmap-num {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+}
+.roadmap-num {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--marino);
+  color: var(--hueso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  box-shadow: 0 0 0 8px var(--tinta);
+  flex: none;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease;
+}
+.roadmap-world-btn:hover .roadmap-num {
+  transform: scale(1.08);
+}
+/* Se enciende en naranja justo cuando el cohete pasa por ese mundo (ver initRoadmap en main.js) */
+.roadmap-world.is-lit .roadmap-num {
+  background: var(--coral);
+  box-shadow: 0 0 0 8px var(--tinta), 0 0 24px 6px rgba(255, 111, 60, 0.55);
+}
+.roadmap-label {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dark-mute);
+  max-width: 11ch;
+  line-height: 1.3;
+}
+
+/* Burbuja explicativa: se abre al pasar el mouse (o con foco de teclado)
+   por encima de un mundo del mapa — ver .roadmap-world:hover más abajo */
+.roadmap-bubble {
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 50%;
+  margin-left: -140px;
+  width: 270px;
+  max-width: 65vw;
+  background: var(--hueso);
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  font-family: var(--body-font);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 5;
+  text-align: left;
+}
+.roadmap-bubble p {
+  margin: 0;
+}
+.roadmap-bubble::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: var(--hueso);
+}
+.roadmap-world:hover .roadmap-bubble,
+.roadmap-world:focus-within .roadmap-bubble {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.roadmap-world-first .roadmap-bubble {
+  left: 0;
+  margin-left: 0;
+}
+.roadmap-world-first .roadmap-bubble::before {
+  left: 24px;
+}
+.roadmap-world-final .roadmap-bubble {
+  left: auto;
+  right: 0;
+  margin-left: 0;
+}
+.roadmap-world-final .roadmap-bubble::before {
+  left: auto;
+  right: 24px;
+  transform: rotate(45deg);
+}
+
+/* Lista vertical: visible por default (mobile/tablet), oculta en desktop */
+.roadmap-list-mobile {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.roadmap-list-mobile li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.roadmap-list-mobile li:last-child .roadmap-num {
+  background: var(--coral);
+}
+.roadmap-list-mobile strong {
+  font-family: var(--display);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.roadmap-list-mobile p {
+  color: var(--text-dark-mute);
+  font-size: 0.95rem;
+}
+
+/* --- Trabajos realizados: carrusel de banners -----------------------------
+   Cada slide es un banner ilustrado (nav + título + botón + visual, tipo
+   hero real) armado en HTML/CSS — no son capturas reales. El carril
+   (.work-carousel-track) se mueve con transform: translateX() calculado en
+   JS a partir del ancho real de cada slide (initWorkCarousel en main.js),
+   así que la tarjeta activa siempre queda alineada al mismo punto de la
+   izquierda y la siguiente asoma un poco por el borde derecho — mismo
+   truco visual que un carrusel de producto tipo Apple. --------------------- */
+.work {
+  padding-block: 6rem;
+  background: var(--niebla);
+  color: var(--ink);
+}
+.work h2 {
+  color: var(--ink);
+}
+.work-caption {
+  margin-top: 1.5rem;
+  max-width: 48ch;
+}
+.work-caption h3 {
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.work-caption p {
+  color: var(--ink-mute);
+  font-size: 1rem;
+}
+
+.work-carousel {
+  position: relative;
+  margin-top: 2.5rem;
+}
+.work-carousel-viewport {
+  overflow: hidden;
+  padding-left: calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter));
+  padding-right: var(--gutter);
+}
+.work-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  will-change: transform;
+  transition: transform 0.65s var(--ease-soft);
+}
+.work-slide {
+  flex: 0 0 auto;
+  width: min(1080px, 82vw);
+}
+.work-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 24, 48, 0.22);
+  cursor: pointer;
+  transform: scale(0.97);
+  filter: saturate(0.75) brightness(0.85);
+  transition: transform 0.5s var(--ease-out), filter 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+.work-slide.is-active .work-banner {
+  cursor: default;
+  transform: scale(1);
+  filter: saturate(1) brightness(1);
+  box-shadow: 0 30px 70px rgba(15, 24, 48, 0.3);
+}
+.work-banner:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 4px;
+}
+.work-banner--coral { background: linear-gradient(135deg, var(--coral), var(--coral-quemado)); }
+.work-banner--marino { background: linear-gradient(135deg, var(--marino), var(--tinta)); }
+
+.work-banner-chrome {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 1rem;
+  background: rgba(15, 24, 48, 0.35);
+}
+.work-banner-dots { display: flex; gap: 0.35rem; flex: none; }
+.work-banner-dots i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(247, 246, 242, 0.35);
+}
+.work-banner-url {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dark-mute);
+  background: rgba(247, 246, 242, 0.1);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.work-banner-badge {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.work-banner-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.1rem, 2.6vw, 2.25rem);
+  min-height: clamp(230px, 30vw, 400px);
+}
+/* Variante para banners con una imagen real en vez del wireframe wfb-*
+   (ver README: "Cómo agregar/editar un trabajo"). Sin padding propio,
+   la imagen ocupa todo el alto/ancho disponible y se recorta prolija
+   con object-fit: cover. */
+.work-banner-hero--photo { padding: 0; }
+.work-banner-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+}
+.wfb-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: clamp(1.2rem, 4vw, 3rem);
+}
+.wfb-logo { width: 22px; height: 22px; border-radius: 6px; background: rgba(255, 255, 255, 0.9); flex: none; }
+.wfb-link { width: 34px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.35); }
+.wfb-cta { margin-left: auto; width: 70px; height: 20px; border-radius: 999px; background: rgba(255, 255, 255, 0.92); }
+
+.wfb-body { flex: 1; display: flex; align-items: center; gap: 2rem; }
+.wfb-body--center { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+.wfb-copy { display: flex; flex-direction: column; gap: 0.6rem; max-width: 360px; }
+.wfb-copy--center { align-items: center; max-width: 420px; }
+.wfb-eyebrow { width: 88px; height: 9px; border-radius: 3px; background: rgba(255, 255, 255, 0.5); }
+.wfb-title { width: 220px; max-width: 80%; height: 22px; border-radius: 5px; background: rgba(255, 255, 255, 0.95); }
+.wfb-title--sm { width: 150px; height: 22px; }
+.wfb-desc { width: 240px; max-width: 85%; height: 9px; border-radius: 3px; background: rgba(255, 255, 255, 0.4); }
+.wfb-btn { margin-top: 0.4rem; width: 132px; height: 36px; border-radius: 999px; background: rgba(255, 255, 255, 0.95); }
+
+.wfb-art { flex: none; }
+.wfb-art--plate {
+  width: clamp(90px, 14vw, 150px);
+  height: clamp(90px, 14vw, 150px);
+  border-radius: 50%;
+  margin-left: auto;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.wfb-art--blob {
+  width: clamp(120px, 16vw, 180px);
+  height: clamp(120px, 16vw, 180px);
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.wfb-art--grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  width: clamp(140px, 18vw, 200px);
+  margin-left: auto;
+}
+.wfb-art--grid span {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.wfb-art--bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  height: clamp(50px, 7vw, 70px);
+  margin-top: 0.5rem;
+}
+.wfb-art--bars i {
+  display: block;
+  width: 11px;
+  border-radius: 5px 5px 2px 2px;
+  background: rgba(255, 255, 255, 0.42);
+}
+.wfb-art--bars i:nth-child(1) { height: 45%; }
+.wfb-art--bars i:nth-child(2) { height: 72%; }
+.wfb-art--bars i:nth-child(3) { height: 100%; }
+.wfb-art--bars i:nth-child(4) { height: 64%; }
+.wfb-art--bars i:nth-child(5) { height: 50%; }
+
+@media (max-width: 640px) {
+  .wfb-body { flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+  .wfb-body--center { align-items: center; }
+  .wfb-art--plate, .wfb-art--grid { margin-left: 0; }
+}
+
+.work-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+.work-carousel-dots { display: flex; align-items: center; gap: 0.5rem; }
+.work-dot {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--line-light);
+  position: relative;
+  overflow: hidden;
+  transition: width 0.3s var(--ease-out), background 0.3s var(--ease-out);
+}
+.work-dot span {
+  position: absolute;
+  inset: 0;
+  background: var(--coral);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.work-dot:hover { background: rgba(255, 111, 60, 0.35); }
+.work-dot.is-active { width: 34px; background: rgba(255, 111, 60, 0.22); }
+.work-dot:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+
+.work-play {
+  appearance: none;
+  border: 1px solid var(--line-light);
+  background: var(--hueso);
+  color: var(--ink);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.work-play:hover { border-color: var(--coral); color: var(--coral); }
+.work-play:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.work-play [data-icon-play] { display: none; }
+.work-play.is-paused [data-icon-pause] { display: none; }
+.work-play.is-paused [data-icon-play] { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .work-carousel-track,
+  .work-banner {
+    transition: none;
+  }
+}
+
+/* --- Testimonials --- */
+.testimonials {
+  background: var(--tinta);
+  padding-block: 6rem;
+}
+.testimonials h2 {
+  color: var(--text-dark);
+}
+/* Carrusel eterno de reseñas: mismo truco que .brands-marquee (dos <ul>
+   idénticas puestas una al lado de la otra, animando translateX de 0% a
+   -50%, que es exactamente el ancho de UNA lista → el loop es invisible).
+   A diferencia del texto de marcas, acá bleedea a todo el ancho de la
+   pantalla (fuera de .container) para que las tarjetas entren y salgan
+   de verdad por los dos bordes, con el mismo fade de máscara en los
+   costados. Pausa al pasar el mouse para poder leer una reseña. */
+.testimonial-marquee {
+  overflow: hidden;
+  margin-top: 2.5rem;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+.testimonial-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: testimonial-marquee-scroll 46s linear infinite;
+}
+@media (hover: hover) and (pointer: fine) {
+  .testimonial-marquee:hover .testimonial-marquee-track {
+    animation-play-state: paused;
+  }
+}
+@keyframes testimonial-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.testimonial-marquee-list {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0 0.75rem;
+  margin: 0;
+}
+.testimonial-marquee-list li {
+  flex: 0 0 auto;
+  display: flex;
+  padding-block: 0.5rem 1rem;
+}
+.testimonial-card {
+  position: relative;
+  width: min(380px, 86vw);
+  background: var(--marino);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+/* Contorno que brilla en naranja pegado al borde de la card, siguiendo el
+   cursor (initTestimonialGlow en main.js actualiza --glow-x/--glow-y).
+   Truco del "anillo": el ::after es un poco más grande que la card, con
+   padding a modo de grosor de borde, y mask-composite recorta todo menos
+   ese anillo. Solo aparece con puntero fino (ver @media más abajo). */
+.testimonial-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: radial-gradient(
+    220px circle at var(--glow-x) var(--glow-y),
+    rgba(255, 111, 60, 0.95),
+    rgba(255, 111, 60, 0.25) 45%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .testimonial-card:hover::after {
+    opacity: 1;
+  }
+}
+.testimonial-demo-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--coral);
+  border: 1px solid var(--coral);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+.testimonial-quote {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+.testimonial-author {
+  margin-top: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.testimonial-role {
+  font-size: 0.85rem;
+  color: var(--text-dark-faint);
+}
+/* --- Contact --- */
+.contact {
+  background: var(--niebla);
+  color: var(--ink);
+  padding-block: 6rem;
+}
+.contact-grid {
+  display: grid;
+  gap: 3rem;
+}
+.contact-copy h2 {
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.contact-list {
+  list-style: none;
+  margin-top: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-light);
+}
+.contact-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  min-width: 6.5rem;
+}
+.contact-list a {
+  font-weight: 600;
+  position: relative;
+}
+.contact-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--coral);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out);
+}
+.contact-list a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.contact-pending {
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.contact-form {
+  background: var(--hueso);
+  border-radius: 20px;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-row label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+}
+.form-row input,
+.form-row textarea {
+  font: inherit;
+  padding: 0.75rem 0;
+  border: none;
+  border-bottom: 1.5px solid var(--line-light);
+  background: transparent;
+  color: var(--ink);
+  transition: border-color 0.3s var(--ease-out);
+  resize: vertical;
+}
+.form-row input:focus,
+.form-row textarea:focus {
+  border-color: var(--coral);
+  outline: none;
+}
+.form-status {
+  min-height: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--coral-quemado);
+}
+.form-status.is-success {
+  color: #1c7a4a;
+}
+
+/* --- Footer --- */
+.footer {
+  background: var(--tinta);
+  border-top: 1px solid var(--line-dark);
+  padding-block: 2rem;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-dark-faint);
+}
+.footer-inner a:hover {
+  color: var(--coral);
+}
+
+/* =============================================================
+   7. Effects — reveals
+   ============================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y));
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* =============================================================
+   8. Responsive (mobile-first)
+   ============================================================= */
+@media (min-width: 540px) {
+  .hero-actions {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 720px) {
+  .about-grid {
+    grid-template-columns: 240px 1fr;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 960px) {
+  .roadmap-map {
+    display: block;
+  }
+  .roadmap-list-mobile {
+    display: none;
+  }
+  .about-rocket {
+    display: block;
+    position: absolute;
+    right: 0.5rem;
+    bottom: -1rem;
+    width: 56px;
+    height: 56px;
+    animation: about-rocket-fly 8s ease-in-out infinite;
+  }
+  .nav-links {
+    display: flex;
+  }
+  .nav-cta {
+    display: inline-flex;
+  }
+  .nav-toggle,
+  .nav-mobile {
+    display: none;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .service-pitch {
+    display: block;
+  }
+  .service-trigger {
+    grid-template-columns: auto 1fr 1.4fr auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 2rem;
+  }
+}
+
+/* =============================================================
+   9. Reduced motion — solo se apaga lo intrusivo (loops infinitos),
+   NO los hovers/tilts/fades/transiciones funcionales.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-scroll-cue span {
+    animation: none;
+    opacity: 0;
+  }
+  .about-rocket {
+    animation: none;
+    opacity: 0;
+  }
+  .roadmap-rocket {
+    display: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .testimonial-marquee-track {
+    animation: none;
+  }
+  .splash {
+    animation-duration: 0.01s;
+    animation-delay: 0.2s;
+  }
+  [data-reveal] {
+    transform: none;
+  }
+  [data-reveal].is-visible {
+    transition-duration: 0.4s;
+  }
+}
