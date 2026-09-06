@@ -784,15 +784,14 @@
   }
 
   /* ---------------------------------------------------------------
-   * Formulario de contacto — sin backend todavía. Simula un envío
-   * para que la UI quede lista; cuando exista un endpoint real,
-   * reemplazar el bloque marcado "TODO backend" por un fetch().
+   * Formulario de contacto — envía a Formspree (sin backend propio).
    * --------------------------------------------------------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
     if (!form) return;
     var status = $("[data-form-status]", form);
     var btn = $('button[type="submit"]', form);
+    var endpoint = "https://formspree.io/f/xwlkndzr";
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -804,18 +803,31 @@
         status.classList.remove("is-success");
       }
 
-      // TODO backend: reemplazar este setTimeout por un fetch() real
-      // (Formspree, un backend propio, etc.) cuando exista un endpoint.
-      setTimeout(function () {
-        var emailValue = form.querySelector("#cf-email");
-        if (status) {
-          status.textContent = "¡Listo! Te vamos a responder a la brevedad" +
-            (emailValue && emailValue.value ? " a " + emailValue.value : "") + ".";
-          status.classList.add("is-success");
-        }
-        if (btn) btn.disabled = false;
-        form.reset();
-      }, 900);
+      var emailValue = form.querySelector("#cf-email");
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("form submission failed");
+          if (status) {
+            status.textContent = "¡Listo! Te vamos a responder a la brevedad" +
+              (emailValue && emailValue.value ? " a " + emailValue.value : "") + ".";
+            status.classList.add("is-success");
+          }
+          form.reset();
+        })
+        .catch(function () {
+          if (status) {
+            status.textContent = "No pudimos enviar tu mensaje. Escribinos directo a support@crimses.com.";
+            status.classList.remove("is-success");
+          }
+        })
+        .then(function () {
+          if (btn) btn.disabled = false;
+        });
     });
   }
 
