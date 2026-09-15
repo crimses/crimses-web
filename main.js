@@ -784,14 +784,15 @@
   }
 
   /* ---------------------------------------------------------------
-   * Formulario de contacto — envía a Formspree (sin backend propio).
+   * Formulario de contacto — envía al Worker propio de CRIMSES
+   * (crimses-forms), compartido entre todos los sitios de clientes.
    * --------------------------------------------------------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
     if (!form) return;
     var status = $("[data-form-status]", form);
     var btn = $('button[type="submit"]', form);
-    var endpoint = "https://formspree.io/f/xwlkndzr";
+    var endpoint = "https://crimses-forms.ccrimses.workers.dev";
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -807,7 +808,6 @@
 
       fetch(endpoint, {
         method: "POST",
-        headers: { Accept: "application/json" },
         body: new FormData(form)
       })
         .then(function (response) {
