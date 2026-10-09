@@ -1183,6 +1183,8 @@ h3 {
   background: var(--marino);
   border-radius: 13px;
   padding: 2.25rem 1.75rem;
+  transform: perspective(900px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  will-change: transform;
 }
 .service-tag {
   align-self: flex-start;

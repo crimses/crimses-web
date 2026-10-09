@@ -832,6 +832,77 @@
   }
 
   /* ---------------------------------------------------------------
+   * Tarjetas de servicios: tilt 3D que sigue al mouse
+   * El transform va en .service-card-inner (no en .service-card):
+   * data-reveal (GSAP) deja un style="transform:..." inline en
+   * .service-card al terminar de aparecer, y eso mataría cualquier
+   * transform de hoja de estilos puesto ahí. .service-card-inner no
+   * tiene data-reveal, así que no choca.
+   * --------------------------------------------------------------- */
+  function initServiceCardTilt() {
+    if (reduced || !fineHover) return;
+    var cards = $$(".service-card");
+    if (!cards.length) return;
+
+    var angle = 20;
+
+    function remap(value, low1, high1, low2, high2) {
+      return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+    }
+    function lerp(a, b, n) {
+      return (1 - n) * a + n * b;
+    }
+
+    cards.forEach(function (card) {
+      var inner = $(".service-card-inner", card);
+      if (!inner) return;
+
+      var currentXAngle = 0;
+      var currentYAngle = 0;
+      var showXAngle = 0;
+      var showYAngle = 0;
+      var intervalId = null;
+
+      function stopWhenSettled() {
+        var settled =
+          Math.abs(currentXAngle - showXAngle) < 0.02 &&
+          Math.abs(currentYAngle - showYAngle) < 0.02;
+        if (settled && showXAngle === 0 && showYAngle === 0) {
+          currentXAngle = 0;
+          currentYAngle = 0;
+          inner.style.setProperty("--rotateX", "0deg");
+          inner.style.setProperty("--rotateY", "0deg");
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      }
+
+      function update() {
+        currentXAngle = lerp(currentXAngle, showXAngle, 0.1);
+        currentYAngle = lerp(currentYAngle, showYAngle, 0.1);
+        inner.style.setProperty("--rotateX", currentXAngle + "deg");
+        inner.style.setProperty("--rotateY", currentYAngle + "deg");
+        stopWhenSettled();
+      }
+
+      card.addEventListener("mousemove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        showYAngle = remap(x, 0, rect.width, -angle, angle);
+        showXAngle = remap(y, 0, rect.height, angle, -angle);
+        if (!intervalId) intervalId = setInterval(update, 1000 / 60);
+      });
+
+      card.addEventListener("mouseout", function () {
+        showXAngle = 0;
+        showYAngle = 0;
+        if (!intervalId) intervalId = setInterval(update, 1000 / 60);
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------
    * Boot
    * --------------------------------------------------------------- */
   function boot() {
@@ -843,6 +914,7 @@
     safe(initCompareSlider, "initCompareSlider");
     safe(initRoadmap, "initRoadmap");
     safe(initWorkCarousel, "initWorkCarousel");
+    safe(initServiceCardTilt, "initServiceCardTilt");
     safe(initTestimonialGlow, "initTestimonialGlow");
     safe(initContactForm, "initContactForm");
     safe(bindReplayButton, "bindReplayButton");
