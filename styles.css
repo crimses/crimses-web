@@ -1159,21 +1159,14 @@ h3 {
 .service-card {
   position: relative;
   border-radius: 16px;
-  transition: box-shadow 0.35s var(--ease-out);
 }
 /*
   Ojo: no se usa transform/translateY acá aunque la tarjeta se sienta
   "elevable" — data-reveal (GSAP) le deja un style="transform:..." inline
   al terminar de aparecer, y un inline style le gana a cualquier regla de
   hoja de estilos sin importar especificidad, así que un :hover con
-  transform quedaría muerto. El efecto queda solo en box-shadow, que no
-  tiene ese conflicto.
+  transform quedaría muerto.
 */
-.service-card:hover {
-  box-shadow:
-    0 0 55px rgba(255, 111, 60, 0.16),
-    0 20px 40px rgba(0, 0, 0, 0.25);
-}
 .service-card-inner {
   position: relative;
   z-index: 1;
@@ -1184,7 +1177,19 @@ h3 {
   border-radius: 13px;
   padding: 2.25rem 1.75rem;
   transform: perspective(900px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  transition: box-shadow 0.35s var(--ease-out);
   will-change: transform;
+}
+/*
+  El box-shadow del hover va en .service-card-inner (el elemento que
+  tiltea), no en .service-card: así el resplandor queda "pegado" a la
+  tarjeta inclinada en vez de quedar como un halo fijo y plano detrás
+  mientras la tarjeta gira.
+*/
+.service-card:hover .service-card-inner {
+  box-shadow:
+    0 0 55px rgba(255, 111, 60, 0.16),
+    0 20px 40px rgba(0, 0, 0, 0.25);
 }
 .service-tag {
   align-self: flex-start;
